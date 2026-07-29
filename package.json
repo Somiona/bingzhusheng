@@ -19,7 +19,7 @@
     "build:editor": "pnpm build:protocol && pnpm build:engine && pnpm --filter webgal-terre-2 build && pnpm --filter webgal-origine-2 build",
     "predev": "pnpm run repo:setup --links-only && pnpm build:protocol && pnpm build:engine",
     "dev": "concurrently -k -n terre,editor,engine \"pnpm --filter webgal-terre-2 start:debug\" \"pnpm --filter webgal-origine-2 dev\" \"pnpm --filter webgal-engine dev:terre\"",
-    "check": "pnpm check:repo && pnpm build:protocol && pnpm --filter webgal-parser test && pnpm --filter webgal-engine typecheck && pnpm --filter webgal-origine-2 typecheck && pnpm --filter webgal-terre-2 test -- --runInBand",
+    "check": "pnpm check:repo && pnpm build:protocol && pnpm --filter webgal-parser test && pnpm --filter webgal-engine typecheck && pnpm --filter webgal-origine-2 typecheck && pnpm --filter webgal-terre-2 test --runInBand",
     "preview": "pnpm --filter webgal-engine preview",
     "mobile:init": "node scripts/native.mjs",
     "mobile:sync": "pnpm build:web && pnpm mobile:init && pnpm --filter @bzs/mobile sync",
@@ -28,6 +28,6 @@
     "check:ios": "pnpm build:web && pnpm mobile:init ios && pnpm version:sync && pnpm --filter @bzs/mobile sync:ios && pnpm --filter @bzs/mobile check:ios"
   },
   "devDependencies": {
-    "concurrently": "^7.6.0"
+    "concurrently": "^10.0.4"
   }
 }

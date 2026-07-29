@@ -188,7 +188,7 @@ export class ManageGameController {
     result && this.logger.log(`${gameName} export as android`);
   }
 
-  @Get('readGameAssets/:readDirPath(*)')
+  @Get('readGameAssets/*readDirPath')
   @ApiOperation({ summary: 'Read Game Assets' })
   @ApiResponse({
     status: 200,
@@ -200,13 +200,13 @@ export class ManageGameController {
     description:
       'Path of the game directory to read assets from, including subdirectories.',
   })
-  async readGameAssets(@Param('readDirPath') readDirPath: string) {
-    readDirPath = decodeURI(readDirPath);
+  async readGameAssets(@Param('readDirPath') readDirPath: string[]) {
+    const decodedReadDirPath = decodeURI(readDirPath.join('/'));
     const dirPath = this.webgalFs.getPathFromRoot(
-      `public/games/${readDirPath}`,
+      `public/games/${decodedReadDirPath}`,
     );
     const dirInfo = await this.webgalFs.getDirInfo(dirPath);
-    return { readDirPath, dirPath, dirInfo };
+    return { readDirPath: decodedReadDirPath, dirPath, dirInfo };
   }
 
   @Post('editFileName')

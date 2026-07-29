@@ -36,7 +36,7 @@ export class AssetsController {
     private readonly assets: AssetsService,
   ) {}
 
-  @Get('readAssets/:readDirPath(*)')
+  @Get('readAssets/*readDirPath')
   @ApiOperation({ summary: 'Read Assets' })
   @ApiResponse({
     status: 200,
@@ -48,14 +48,14 @@ export class AssetsController {
     description:
       'Path of the directory to read assets from, including subdirectories.',
   })
-  async readAssets(@Param('readDirPath') readDirPath: string) {
-    readDirPath = decodeURI(`public/${readDirPath}`);
-    const dirPath = this.webgalFs.getPathFromRoot(`${readDirPath}`);
+  async readAssets(@Param('readDirPath') readDirPath: string[]) {
+    const decodedReadDirPath = decodeURI(`public/${readDirPath.join('/')}`);
+    const dirPath = this.webgalFs.getPathFromRoot(decodedReadDirPath);
     const dirInfo = await this.webgalFs.getDirInfo(dirPath);
-    return { readDirPath, dirPath, dirInfo };
+    return { readDirPath: decodedReadDirPath, dirPath, dirInfo };
   }
 
-  @Post('openDict/:dirPath(*)')
+  @Post('openDict/*dirPath')
   @ApiOperation({ summary: 'Open Assets Dictionary' })
   @ApiResponse({
     status: 200,
@@ -66,9 +66,9 @@ export class AssetsController {
     type: String,
     description: 'Directory path to open.',
   })
-  async openDict(@Param('dirPath') dirPath: string) {
-    dirPath = decodeURI(`public/${dirPath}`); // Optionally decode the URI if necessary
-    const path = this.webgalFs.getPathFromRoot(dirPath);
+  async openDict(@Param('dirPath') dirPath: string[]) {
+    const decodedDirPath = decodeURI(`public/${dirPath.join('/')}`); // Optionally decode the URI if necessary
+    const path = this.webgalFs.getPathFromRoot(decodedDirPath);
     await _open(path);
   }
 
@@ -179,7 +179,7 @@ export class AssetsController {
     return this.webgalFs.updateTextFile(filePath, editTextFileData.textFile);
   }
 
-  @Get('getImageDimensions/:imagePath(*)')
+  @Get('getImageDimensions/*imagePath')
   @ApiOperation({ summary: 'Get Image Dimensions' })
   @ApiResponse({
     status: 200,
@@ -195,8 +195,8 @@ export class AssetsController {
     type: String,
     description: 'Path to the image file relative to public/',
   })
-  async getImageDimensions(@Param('imagePath') imagePath: string) {
-    return this.assets.getImageDimensions(imagePath);
+  async getImageDimensions(@Param('imagePath') imagePath: string[]) {
+    return this.assets.getImageDimensions(imagePath.join('/'));
   }
 
   @Post('copyFileWithIncrement')

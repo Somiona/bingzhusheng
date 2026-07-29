@@ -14,9 +14,8 @@ export class TemplatePreviewController {
     private readonly templatePreviewService: TemplatePreviewService,
   ) {}
 
-  @Get('/:templateName/game/template/:path(*)')
+  @Get('/:templateName/game/template/*path')
   getTemplateAsset(
-    @Param('path') path: string,
     @Param('templateName') templateName: string,
     @Req() req: Request,
   ) {

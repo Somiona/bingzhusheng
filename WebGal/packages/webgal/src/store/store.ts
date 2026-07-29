@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import GUIReducer from '@/store/GUIReducer';
 import userDataReducer from '@/store/userDataReducer';
 import savesReducer from '@/store/savesReducer';
@@ -12,9 +12,10 @@ export const webgalStore = configureStore({
     userData: userDataReducer,
     saveData: savesReducer,
   },
-  middleware: getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
   devTools: process.env.NODE_ENV !== 'production',
 });
 

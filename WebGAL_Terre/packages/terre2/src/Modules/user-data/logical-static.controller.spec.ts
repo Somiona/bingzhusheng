@@ -19,27 +19,36 @@ describe('LogicalStaticController', () => {
 
   it('does not reject when the client aborts a sendFile request', async () => {
     const res = {
-      sendFile: jest.fn((_: string, callback: (error?: Error) => void) => {
-        callback(
-          Object.assign(new Error('Request aborted'), {
-            code: 'ECONNABORTED',
-          }),
-        );
-      }),
+      sendFile: jest.fn(
+        (_: string, _options: object, callback: (error?: Error) => void) => {
+          callback(
+            Object.assign(new Error('Request aborted'), {
+              code: 'ECONNABORTED',
+            }),
+          );
+        },
+      ),
     };
 
     await expect(sendFile(controller, filePath, res)).resolves.toBeUndefined();
+    expect(res.sendFile).toHaveBeenCalledWith(
+      path.basename(filePath),
+      { root: path.dirname(filePath) },
+      expect.any(Function),
+    );
   });
 
   it('rejects non-abort sendFile errors', async () => {
     const res = {
-      sendFile: jest.fn((_: string, callback: (error?: Error) => void) => {
-        callback(
-          Object.assign(new Error('Disk read failed'), {
-            code: 'EIO',
-          }),
-        );
-      }),
+      sendFile: jest.fn(
+        (_: string, _options: object, callback: (error?: Error) => void) => {
+          callback(
+            Object.assign(new Error('Disk read failed'), {
+              code: 'EIO',
+            }),
+          );
+        },
+      ),
     };
 
     await expect(sendFile(controller, filePath, res)).rejects.toThrow(

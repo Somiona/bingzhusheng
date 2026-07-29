@@ -25,28 +25,28 @@ export class LogicalStaticController {
     return this.sendPublicFile('favicon.ico', res);
   }
 
-  @Get('assets/:filePath(*)')
+  @Get('assets/*filePath')
   async getEditorAsset(
-    @Param('filePath') filePath: string,
+    @Param('filePath') filePath: string[],
     @Res() res: Response,
   ) {
-    return this.sendPublicFile(`assets/${filePath}`, res);
+    return this.sendPublicFile(`assets/${filePath.join('/')}`, res);
   }
 
-  @Get('monaco-iframe/:filePath(*)')
+  @Get('monaco-iframe/*filePath')
   async getMonacoAsset(
-    @Param('filePath') filePath: string,
+    @Param('filePath') filePath: string[],
     @Res() res: Response,
   ) {
-    return this.sendPublicFile(`monaco-iframe/${filePath}`, res);
+    return this.sendPublicFile(`monaco-iframe/${filePath.join('/')}`, res);
   }
 
-  @Get('wasm/:filePath(*)')
+  @Get('wasm/*filePath')
   async getWasmAsset(
-    @Param('filePath') filePath: string,
+    @Param('filePath') filePath: string[],
     @Res() res: Response,
   ) {
-    return this.sendPublicFile(`wasm/${filePath}`, res);
+    return this.sendPublicFile(`wasm/${filePath.join('/')}`, res);
   }
 
   @Get('games/:gameName')
@@ -61,24 +61,24 @@ export class LogicalStaticController {
     return this.sendGameFile(gameName, '', res);
   }
 
-  @Get('games/:gameName/:filePath(*)')
+  @Get('games/:gameName/*filePath')
   async getGameFile(
     @Param('gameName') gameName: string,
-    @Param('filePath') filePath: string,
+    @Param('filePath') filePath: string[],
     @Res() res: Response,
   ) {
-    return this.sendGameFile(gameName, filePath, res);
+    return this.sendGameFile(gameName, filePath.join('/'), res);
   }
 
-  @Get('templates/:templateName/:filePath(*)')
+  @Get('templates/:templateName/*filePath')
   async getTemplateFile(
     @Param('templateName') templateName: string,
-    @Param('filePath') filePath: string,
+    @Param('filePath') filePath: string[],
     @Res() res: Response,
   ) {
     const targetPath = await UserDataService.resolveReadableTemplateFile(
       decodeURI(templateName),
-      decodeURI(filePath ?? ''),
+      decodeURI(filePath.join('/')),
     );
     return this.sendFile(targetPath, res);
   }
@@ -95,13 +95,13 @@ export class LogicalStaticController {
     return this.sendTemplatePreviewFile(templateName, '', res);
   }
 
-  @Get('template-preview/:templateName/:filePath(*)')
+  @Get('template-preview/:templateName/*filePath')
   async getTemplatePreviewFile(
     @Param('templateName') templateName: string,
-    @Param('filePath') filePath: string,
+    @Param('filePath') filePath: string[],
     @Res() res: Response,
   ) {
-    return this.sendTemplatePreviewFile(templateName, filePath, res);
+    return this.sendTemplatePreviewFile(templateName, filePath.join('/'), res);
   }
 
   private async sendGameFile(
@@ -192,17 +192,21 @@ export class LogicalStaticController {
       throw new NotFoundException('The requested file does not exist.');
     }
     return new Promise<void>((resolve, reject) => {
-      res.sendFile(filePath, (error: NodeJS.ErrnoException) => {
-        if (error) {
-          if (this.isRequestAbortError(error)) {
-            resolve();
+      res.sendFile(
+        path.basename(filePath),
+        { root: path.dirname(filePath) },
+        (error: NodeJS.ErrnoException) => {
+          if (error) {
+            if (this.isRequestAbortError(error)) {
+              resolve();
+              return;
+            }
+            reject(error);
             return;
           }
-          reject(error);
-          return;
-        }
-        resolve();
-      });
+          resolve();
+        },
+      );
     });
   }
 
