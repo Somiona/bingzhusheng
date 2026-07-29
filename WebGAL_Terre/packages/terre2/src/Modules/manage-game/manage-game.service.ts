@@ -114,9 +114,7 @@ export class ManageGameService {
       );
     } else {
       await this.webgalFs.copy(
-        this.webgalFs.getPathFromRoot(
-          '/assets/templates/WebGAL_Starter_Game/',
-        ),
+        this.webgalFs.getPathFromRoot('/assets/templates/WebGAL_Starter_Game/'),
         this.webgalFs.getPathFromRoot(`/public/games/${gameDir}/game/`),
       );
     }
@@ -325,6 +323,39 @@ export class ManageGameService {
     ejectPlatform: 'web' | 'electron-windows' | 'android',
   ): Promise<boolean> {
     try {
+      const repoRoot = join(process.cwd(), '../../..');
+      if (
+        ejectPlatform === 'electron-windows' &&
+        (await this.webgalFs.exists(
+          join(repoRoot, 'apps/desktop/package.json'),
+        ))
+      ) {
+        const engineDist = join(repoRoot, 'WebGal/packages/webgal/dist');
+        await this.webgalFs.deleteFileOrDirectory(engineDist);
+        await this.webgalFs.copy(
+          this.webgalFs.getPathFromRoot(`/public/games/${gameName}`),
+          engineDist,
+        );
+        await promisify(execFile)(
+          process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm',
+          ['version:sync'],
+          { cwd: repoRoot },
+        );
+        await promisify(execFile)(
+          process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm',
+          ['--filter', '@bzs/desktop', 'package'],
+          {
+            cwd: repoRoot,
+            env: {
+              ...process.env,
+              CSC_IDENTITY_AUTO_DISCOVERY: 'false',
+            },
+          },
+        );
+        await _open(join(repoRoot, 'apps/desktop/build'));
+        return true;
+      }
+
       // 检查是否使用了衍生版本
       const gameRootDir = `/public/games/${gameName}/`;
       const checkIsEngineTemplateExist = async () => {
@@ -618,13 +649,19 @@ export class ManageGameService {
         );
         await this.webgalFs.mkdir(
           // eslint-disable-next-line prettier/prettier
-          `${androidExportDir}/app/src/main/java/${gameConfig.Package_name.replace(/\./g, '/')}`,
+          `${androidExportDir}/app/src/main/java/${gameConfig.Package_name.replace(
+            /\./g,
+            '/',
+          )}`,
           '',
         );
         await this.webgalFs.copy(
           `${androidExportDir}/app/src/main/java/MainActivity.kt`,
           // eslint-disable-next-line prettier/prettier
-          `${androidExportDir}/app/src/main/java/${gameConfig.Package_name.replace(/\./g, '/')}/MainActivity.kt`
+          `${androidExportDir}/app/src/main/java/${gameConfig.Package_name.replace(
+            /\./g,
+            '/',
+          )}/MainActivity.kt`,
         );
         await this.webgalFs.deleteFileOrDirectory(
           `${androidExportDir}/app/src/main/java/MainActivity.kt`,

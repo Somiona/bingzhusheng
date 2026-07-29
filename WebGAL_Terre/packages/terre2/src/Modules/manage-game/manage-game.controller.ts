@@ -4,6 +4,7 @@ import {
   ConsoleLogger,
   Controller,
   Get,
+  InternalServerErrorException,
   Param,
   Post,
   Query,
@@ -164,7 +165,10 @@ export class ManageGameController {
       gameName,
       'electron-windows',
     );
-    result && this.logger.log(`${gameName} export as exe`);
+    if (!result)
+      throw new InternalServerErrorException('Executable export failed');
+    this.logger.log(`${gameName} export as exe`);
+    return true;
   }
 
   @Get('ejectGameAsAndroid/:gameName')

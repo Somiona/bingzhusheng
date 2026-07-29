@@ -12,5 +12,9 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json"
+  },
+  "devDependencies": {
+    "rimraf": "catalog:",
+    "typescript": "catalog:"
   }
 }

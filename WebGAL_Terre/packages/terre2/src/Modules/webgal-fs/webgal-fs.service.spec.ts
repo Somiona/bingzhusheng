@@ -56,6 +56,29 @@ describe('WebgalFsService', () => {
     await expect(fs.stat(targetFilePath)).resolves.toBeDefined();
   });
 
+  it('copies symlink contents without deleting the source through the link', async () => {
+    const source = join(testRoot, 'source');
+    const link = join(testRoot, 'link');
+    const copy = join(testRoot, 'copy');
+    await fs.mkdir(source);
+    await fs.writeFile(join(source, 'game.txt'), 'safe');
+    await fs.symlink(
+      source,
+      link,
+      process.platform === 'win32' ? 'junction' : 'dir',
+    );
+
+    await expect(service.copy(link, copy)).resolves.toBe(true);
+    await expect(fs.readFile(join(copy, 'game.txt'), 'utf8')).resolves.toBe(
+      'safe',
+    );
+    await expect(service.deleteFileOrDirectory(link)).resolves.toBe(true);
+    await expect(fs.readFile(join(source, 'game.txt'), 'utf8')).resolves.toBe(
+      'safe',
+    );
+    await expect(fs.lstat(link)).rejects.toBeDefined();
+  });
+
   it('blocks creating files out of workspace', async () => {
     const outsidePath = join(
       resolve(process.cwd(), '..'),

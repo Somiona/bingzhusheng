@@ -6,6 +6,18 @@ packages:
   - WebGAL_Terre/packages/origine2
   - apps/*
 
+catalog:
+  rimraf: 3.0.2
+  typescript: 5.9.3
+  vscode-ws-jsonrpc: 3.3.2
+
+catalogs:
+  legacy-parser:
+    typescript: 4.9.5
+
+overrides:
+  "img2ico>jimp": 1.6.0
+
 strictDepBuilds: true
 
 allowBuilds:

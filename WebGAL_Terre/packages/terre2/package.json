@@ -43,13 +43,13 @@
     "image-size": "^2.0.2",
     "open": "^8.4.0",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
+    "rimraf": "catalog:",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^5.0.0",
     "trash": "^10.1.1",
     "vscode-languageserver": "^8.1.0",
     "vscode-languageserver-textdocument": "^1.0.11",
-    "vscode-ws-jsonrpc-webgal": "0.2.1",
+    "vscode-ws-jsonrpc": "catalog:",
     "webgal-engine": "workspace:*",
     "webgal-parser": "workspace:*",
     "ws": "8.18.0"
@@ -79,7 +79,7 @@
     "ts-jest": "29.4.9",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "4.0.0",
-    "typescript": "^5.8.3"
+    "typescript": "catalog:"
   },
   "jest": {
     "moduleFileExtensions": [

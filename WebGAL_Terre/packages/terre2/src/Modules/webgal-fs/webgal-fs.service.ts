@@ -107,7 +107,10 @@ export class WebgalFsService {
   async copy(src: string, dest: string): Promise<boolean> {
     try {
       this.logger.log(`复制: ${decodeURI(src)} -> ${decodeURI(dest)}`);
-      await fs.cp(decodeURI(src), decodeURI(dest), { recursive: true });
+      await fs.cp(decodeURI(src), decodeURI(dest), {
+        recursive: true,
+        dereference: true,
+      });
       return true;
     } catch (error) {
       this.logger.error(
@@ -217,7 +220,7 @@ export class WebgalFsService {
     try {
       const path = decodeURI(_path);
 
-      const stat = await fs.stat(path);
+      const stat = await fs.lstat(path);
 
       if (stat.isDirectory()) {
         const files = await fs.readdir(path);

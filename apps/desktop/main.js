@@ -1,6 +1,7 @@
-const { app, BrowserWindow, globalShortcut, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, globalShortcut, Menu, ipcMain, net, protocol } = require('electron');
 const log = require('electron-log');
 const path = require('path');
+const { pathToFileURL } = require('url');
 const Steamworks = require('steamworks.js');
 
 let steamClient;
@@ -84,10 +85,31 @@ app.commandLine.appendSwitch("--autoplay-policy", "no-user-gesture-required"); /
  */
 Menu.setApplicationMenu(null);
 
+protocol.registerSchemesAsPrivileged([
+    {
+        scheme: 'app',
+        privileges: { standard: true, secure: true, supportFetchAPI: true },
+    },
+]);
+
 /**
  * 在应用启动后打开窗口
  */
 app.whenReady().then(() => {
+    const webRoot = app.isPackaged
+        ? path.join(process.resourcesPath, 'public')
+        : path.resolve(__dirname, '../../WebGal/packages/webgal/dist');
+
+    protocol.handle('app', (request) => {
+        const pathname = decodeURIComponent(new URL(request.url).pathname);
+        const filePath = path.resolve(webRoot, `.${pathname === '/' ? '/index.html' : pathname}`);
+        const relativePath = path.relative(webRoot, filePath);
+        if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
+            return new Response('Not found', { status: 404 });
+        }
+        return net.fetch(pathToFileURL(filePath).toString());
+    });
+
     createWindow()
 
     try {
@@ -118,11 +140,7 @@ const createWindow = () => {
         },
     })
 
-    const webRoot = app.isPackaged
-        ? path.join(process.resourcesPath, 'public')
-        : path.resolve(__dirname, '../../WebGal/packages/webgal/dist');
-
-    win.loadFile(path.join(webRoot, 'index.html')).then(r => {
+    win.loadURL('app://webgal/index.html').then(r => {
         console.log(r)
         win.webContents.executeJavaScript('window.isElectron = true')
     });
