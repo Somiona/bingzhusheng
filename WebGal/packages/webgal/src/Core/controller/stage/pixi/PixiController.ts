@@ -148,6 +148,7 @@ export default class PixiStage {
 
     // 添加主舞台容器
     this.mainStageContainer = new WebGALPixiContainer();
+    this.mainStageContainer.filterArea = app.screen;
     // 设置可排序
     this.mainStageContainer.sortableChildren = true;
     this.mainStageContainer.setBaseX(this.stageWidth / 2);

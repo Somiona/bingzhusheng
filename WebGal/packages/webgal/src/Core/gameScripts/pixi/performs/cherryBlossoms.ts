@@ -42,8 +42,6 @@ const pixiCherryBlossoms = (
   const stageWidth = screenWidth * absCos + screenHeight * absSin;
   const stageHeight = screenWidth * absSin + screenHeight * absCos;
 
-  container.width = stageWidth;
-  container.height = stageHeight;
   container.pivot.set(stageWidth / 2, stageHeight / 2);
   container.position.set(screenWidth / 2, screenHeight / 2);
 
