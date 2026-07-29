@@ -12,6 +12,11 @@ const env = process.env.NODE_ENV;
 console.log(env);
 
 export default defineConfig(({ mode }) => ({
+  css: {
+    preprocessorOptions: {
+      scss: { api: 'modern' },
+    },
+  },
   plugins: [
     react(),
     loadVersion(),
