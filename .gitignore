@@ -23,7 +23,6 @@
 
 # Generated workspace links and sources
 WebGal/packages/webgal/public/game
-WebGal/packages/webgal/src/Core/util/pixiPerformManager/initRegister.ts
 WebGAL_Terre/packages/origine2/src/locales/*.js
 WebGAL_Terre/packages/origine2/src/locales/*.ts
 
