@@ -1,0 +1,12 @@
+{
+  "name": "webgal-terre",
+  "version": "4.6.2",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -w dev",
+    "build": "pnpm -w build:editor"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

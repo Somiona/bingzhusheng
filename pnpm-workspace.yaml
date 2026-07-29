@@ -1,0 +1,17 @@
+packages:
+  - WebGal/packages/parser
+  - WebGal/packages/webgal
+  - WebGAL_Terre/packages/editor-preview-protocol
+  - WebGAL_Terre/packages/terre2
+  - WebGAL_Terre/packages/origine2
+  - apps/*
+
+strictDepBuilds: true
+
+allowBuilds:
+  "@nestjs/core": false
+  "@parcel/watcher": true
+  "@scarf/scarf": false
+  electron: true
+  electron-winstaller: true
+  esbuild: true

@@ -1,0 +1,40 @@
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Game media stays out of Git object history.
+game/**/*.png filter=lfs diff=lfs merge=lfs -text
+game/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+game/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
+game/**/*.webp filter=lfs diff=lfs merge=lfs -text
+game/**/*.gif filter=lfs diff=lfs merge=lfs -text
+game/**/*.avif filter=lfs diff=lfs merge=lfs -text
+game/**/*.bmp filter=lfs diff=lfs merge=lfs -text
+game/**/*.ico filter=lfs diff=lfs merge=lfs -text
+game/**/*.mp3 filter=lfs diff=lfs merge=lfs -text
+game/**/*.wav filter=lfs diff=lfs merge=lfs -text
+game/**/*.ogg filter=lfs diff=lfs merge=lfs -text
+game/**/*.flac filter=lfs diff=lfs merge=lfs -text
+game/**/*.m4a filter=lfs diff=lfs merge=lfs -text
+game/**/*.aac filter=lfs diff=lfs merge=lfs -text
+game/**/*.mp4 filter=lfs diff=lfs merge=lfs -text
+game/**/*.webm filter=lfs diff=lfs merge=lfs -text
+game/**/*.mov filter=lfs diff=lfs merge=lfs -text
+game/**/*.mkv filter=lfs diff=lfs merge=lfs -text
+game/**/*.ttf filter=lfs diff=lfs merge=lfs -text
+game/**/*.otf filter=lfs diff=lfs merge=lfs -text
+game/**/*.woff filter=lfs diff=lfs merge=lfs -text
+game/**/*.woff2 filter=lfs diff=lfs merge=lfs -text
+game/**/*.psd filter=lfs diff=lfs merge=lfs -text
+game/**/*.clip filter=lfs diff=lfs merge=lfs -text
+game/**/*.skel filter=lfs diff=lfs merge=lfs -text
+game/**/*.moc3 filter=lfs diff=lfs merge=lfs -text
+
+# Large runtime inputs that are source, not generated build output.
+WebGal/packages/webgal/src/assets/fonts/**/*.ttf filter=lfs diff=lfs merge=lfs -text
+WebGal/packages/webgal/src/assets/fonts/**/*.otf filter=lfs diff=lfs merge=lfs -text
+WebGal/packages/webgal/src/assets/fonts/**/*.woff* filter=lfs diff=lfs merge=lfs -text
+WebGAL_Terre/packages/origine2/src/assets/fonts/**/*.ttf filter=lfs diff=lfs merge=lfs -text
+WebGAL_Terre/packages/origine2/src/assets/fonts/**/*.otf filter=lfs diff=lfs merge=lfs -text
+WebGAL_Terre/packages/origine2/src/assets/fonts/**/*.woff* filter=lfs diff=lfs merge=lfs -text
+WebGAL_Terre/packages/origine2/public/wasm/** filter=lfs diff=lfs merge=lfs -text

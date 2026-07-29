@@ -1,0 +1,17 @@
+{
+  "name": "@bzs/engine-workspace",
+  "version": "4.6.2",
+  "description": "WebGAL-Chefe workspace for the FurryFur INC project.",
+  "repository": "https://github.com/OpenWebGAL/WebGAL.git",
+  "author": "FurryFur INC",
+  "scripts": {
+    "build": "pnpm -w build:web",
+    "dev": "pnpm -w dev",
+    "test": "pnpm --filter webgal-parser test"
+  },
+  "license": "MPL-2.0",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  }
+}

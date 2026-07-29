@@ -1,0 +1,9 @@
+Game_name:秉烛生;
+Package_name:cn.furryfur.games.bzs;
+Game_key:0f87dstRg;
+Title_img:WebGAL_New_Enter_Image.webp;
+Title_bgm:s_Title.mp3;
+Game_Logo:WebGalEnter.webp;
+Enable_Appreciation:true;
+Enable_Continue:true;
+Enable_flowchart:true;

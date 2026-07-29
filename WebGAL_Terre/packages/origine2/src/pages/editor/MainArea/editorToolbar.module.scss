@@ -1,0 +1,39 @@
+.toolbar {
+  border-top: var(--border-sm);
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 8px;
+  gap: 8px;
+  background: var(--bg-card);
+}
+
+.toolbar_button {
+  padding: 0 6px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  text-wrap: nowrap;
+}
+
+.toolbar_button:hover {
+  background: var(--bg-button-hover);
+}
+
+.toolbar_button_active {
+  background: var(--bg-button-hover);
+  color: var(--primary);
+}
+
+.active {
+  background: var(--bg-button-hover);
+}

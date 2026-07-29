@@ -1,0 +1,44 @@
+# Dependencies and generated JavaScript output
+**/node_modules/
+.pnpm-store/
+**/dist/
+**/dist-ssr/
+**/build/
+**/coverage/
+**/.cache/
+**/.eslintcache
+*.tsbuildinfo
+
+# Local runtime data and tooling indexes
+.terre/
+.codegraph/
+.agents/
+.codex/
+
+# Logs and package-manager noise
+**/logs/
+*.log
+*-debug.log*
+.DS_Store
+
+# Generated workspace links and sources
+WebGal/packages/webgal/public/game
+WebGal/packages/webgal/src/Core/util/pixiPerformManager/initRegister.ts
+WebGAL_Terre/packages/origine2/src/locales/*.js
+WebGAL_Terre/packages/origine2/src/locales/*.ts
+
+# Reproducible Capacitor projects
+apps/mobile/android/
+apps/mobile/ios/
+
+# Release output and credentials
+release/
+output/
+Exported_Games/
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+.env
+.env.*
+!.env.example

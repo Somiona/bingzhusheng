@@ -1,0 +1,61 @@
+{
+  "name": "@bzs/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WebGAL Electron",
+  "main": "main.js",
+  "author": "OpenWebGAL <contact@openwebgal.com>",
+  "license": "MPL-2.0",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "43.2.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "productName": "秉烛生",
+    "appId": "cn.furryfur.games.bzs",
+    "directories": {
+      "output": "build"
+    },
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/steamworks.js/**"
+    ],
+    "files": [
+      "main.js",
+      "preload.js",
+      "package.json",
+      "public/icon.*"
+    ],
+    "extraResources": [
+      {
+        "from": "../../WebGal/packages/webgal/dist",
+        "to": "public"
+      }
+    ],
+    "win": {
+      "icon": "public/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "icon": "public/icon.png",
+      "target": [
+        "dmg"
+      ]
+    }
+  },
+  "dependencies": {
+    "electron-log": "^5.1.5",
+    "steamworks.js": "^0.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenWebGAL/WebGAL_Terre.git"
+  }
+}

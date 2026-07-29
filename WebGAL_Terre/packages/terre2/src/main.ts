@@ -1,0 +1,59 @@
+import * as process from 'process';
+
+const args = process.argv.slice(2);
+let cwd = process.cwd();
+
+const cwdIndex = args.indexOf('--cwd');
+if (cwdIndex !== -1 && cwdIndex + 1 < args.length) {
+  cwd = args[cwdIndex + 1];
+}
+
+process.chdir(cwd);
+
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { _open } from './util/open';
+import { urlencoded, json } from 'express';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { env } from 'process';
+import { WsAdapter } from '@nestjs/platform-ws';
+import './logger';
+import { UserDataService } from './Modules/user-data/user-data.service';
+import { version_number } from './version';
+
+let WEBGAL_PORT = 3000; // 默认端口
+if (env.WEBGAL_PORT) {
+  WEBGAL_PORT = Number.parseInt(env.WEBGAL_PORT);
+}
+
+async function bootstrap() {
+  await UserDataService.initialize();
+
+  const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+    allowedHeaders: '*', // Allow all headers
+    exposedHeaders: '*', // Expose all headers
+  });
+
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ extended: true, limit: '50mb' }));
+  const config = new DocumentBuilder()
+    .setTitle('WebGAL Terre API')
+    .setDescription('API Refrence of WebGAL Terre Editor')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+  app.useWebSocketAdapter(new WsAdapter(app));
+  await app.listen(WEBGAL_PORT + 1);
+}
+
+bootstrap().then(() => {
+  console.log(`WebGAL Terre ${version_number} starting at ${process.cwd()}`);
+  if ((process?.env?.NODE_ENV ?? '') !== 'development' && !global['isElectron'])
+    _open(`http://localhost:${WEBGAL_PORT + 1}`);
+});

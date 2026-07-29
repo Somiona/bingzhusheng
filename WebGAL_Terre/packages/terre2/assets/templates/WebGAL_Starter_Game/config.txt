@@ -1,0 +1,4 @@
+Game_name:新的游戏;
+Game_key:;
+Title_img:;
+Title_bgm:;
