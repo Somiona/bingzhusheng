@@ -29,6 +29,25 @@ export const assetsScanner = (
       }
     });
   }
+  // 【本地定制】intro 的 -vocals 参数：逗号分隔的配音文件列表，逐个作为 vocal 资源预加载
+  if (command === commandType.intro) {
+    args.forEach((e) => {
+      if (e.key === 'vocals') {
+        const files = (e.value as string)
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean);
+        files.forEach((f) => {
+          returnAssetsList.push({
+            name: f,
+            url: f,
+            lineNumber,
+            type: fileType.vocal,
+          });
+        });
+      }
+    });
+  }
   if (content === 'none' || content === '') {
     return returnAssetsList;
   }

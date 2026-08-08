@@ -1,1 +1,6 @@
-intro:开始创作你的 WebGAL 游戏;
+intro: 砚冷灯残，简牍堆案。|常怀遥念，铺纸徘徊，终缄默罢书。|行路风霜，不欲扰远人安宁。 -vocals=intro_01.mp3,intro_02.mp3,intro_03.mp3;
+intro: 忆昔同游数辈，月下畅饮。|少年坦荡，未悟离合有数。 -vocals=intro_04.mp3,intro_05.mp3;
+intro: 今旧游之地，荒苔自生。|半生羁旅，关河迢递。|夜阑秉烛，偶忆前尘。 -vocals=intro_06.mp3,intro_07.mp3,intro_08.mp3;
+intro: 惧初心随流光湮灭, |遂辑所历成编，题曰《秉烛生》。 -vocals=intro_09.mp3,intro_10.mp3;
+intro: 不冀世人相知，聊以自存，毋忘当年月下寸衷。 -vocals=intro_11.mp3;
+intro: “为天地立心，为生民立命，为往圣继绝学，为万世开太平。” |——宋·张载《横渠四句》 -delays=1500,4000;

@@ -41,6 +41,18 @@ export function argsParser(
         value: assetSetter(argValue, fileType.vocal),
       });
     }
+    // 【本地定制】intro 的 -vocals 是逗号分隔的配音文件列表，逐个解析成完整路径（./game/vocal/xxx），
+    // 使预加载(assetsScanner)与播放(intro.tsx)用同一 url，与 say 的 vocal 处理口径一致。
+    else if (argName === 'vocals' && argValue !== undefined) {
+      const files = argValue
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+      returnArrayList.push({
+        key: argName,
+        value: files.map((f) => assetSetter(f, fileType.vocal)).join(','),
+      });
+    }
     // 判断是不是省略参数
     else if (argValue === undefined) {
       returnArrayList.push({
