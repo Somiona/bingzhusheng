@@ -1,0 +1,9 @@
+文件夹	存放的资源
+animation	动画描述文件
+background	用于存放背景图片、标题页背景
+figure	用于存放人物立绘
+scene	用于存放用户剧本
+bgm	用于存放背景音乐
+vocal	用于存放配音文件
+video	用于存放视频
+tex	用于存放特效纹理文件
