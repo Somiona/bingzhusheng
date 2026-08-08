@@ -90,9 +90,13 @@ function ensureFetched(dir, entry, ref) {
 }
 
 // lock exclude entries ending with "/" match whole directories.
-function excludeToApplyArgs(exclude) {
+// NOTE: git apply matches --exclude against the path *after* --directory
+// prefixing, so patterns must include the vendored dir prefix.
+function excludeToApplyArgs(dir, exclude) {
   return exclude.map((entry) =>
-    entry.endsWith('/') ? `--exclude=${entry}*` : `--exclude=${entry}`,
+    entry.endsWith('/')
+      ? `--exclude=${dir}/${entry}*`
+      : `--exclude=${dir}/${entry}`,
   );
 }
 
@@ -325,7 +329,7 @@ function cmdSync(dir, target, accept) {
     '--3way',
     '--verbose',
     `--directory=${dir}/`,
-    ...excludeToApplyArgs(entry.exclude),
+    ...excludeToApplyArgs(dir, entry.exclude),
     path.relative(root, patchFile),
   ]);
   process.stdout.write(apply.stdout ?? '');
