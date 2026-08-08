@@ -1,7 +1,7 @@
 {
   "WebGal": {
     "upstream": "https://github.com/OpenWebGAL/WebGAL",
-    "base": "4.6.2",
+    "base": "4.6.4",
     "exclude": [
       ".github/",
       ".gitignore",
@@ -26,7 +26,7 @@
   },
   "WebGAL_Terre": {
     "upstream": "https://github.com/OpenWebGAL/WebGAL_Terre",
-    "base": "4.6.2",
+    "base": "4.6.4",
     "exclude": [
       ".github/",
       "yarn.lock",
@@ -49,6 +49,7 @@
       "packages/terre-android/",
       "packages/dev-server/",
       "packages/origine2/vite.config.ts",
+      "packages/origine2/src/locales/ko.ts",
       "packages/terre2/pkg-build.ts",
       "packages/terre2/standalone.js",
       "packages/terre2/update-exe-resources.ts",

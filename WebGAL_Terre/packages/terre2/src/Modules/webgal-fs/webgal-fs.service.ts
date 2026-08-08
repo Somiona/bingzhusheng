@@ -3,7 +3,11 @@ import * as fs from 'fs/promises';
 import archiver = require('archiver');
 import AdmZip = require('adm-zip');
 import { basename, dirname, extname, isAbsolute, join } from 'path';
+import { execFile } from 'child_process';
+import { promisify } from 'util';
 import { UserDataService } from '../user-data/user-data.service';
+
+const pExecFile = promisify(execFile);
 
 export interface IFileInfo {
   name: string;
@@ -276,7 +280,6 @@ export class WebgalFsService {
   async trashFileOrDirectory(_path: string): Promise<boolean> {
     try {
       const path = decodeURI(_path);
-
       const stat = await fs.stat(path);
 
       if (stat.isDirectory()) {
@@ -285,7 +288,27 @@ export class WebgalFsService {
         this.logger.log(`丢弃文件: ${path}`);
       }
       const trash = (await Function('return import("trash")')()).default;
+
+      // 打包后 trash 库定位不到随包分发的原生二进制，改用可执行文件同级 lib 目录下的副本
+      const trashBinary = {
+        darwin: 'macos-trash',
+        win32: 'windows-trash.exe',
+      }[process.platform];
+      const trashBinaryPath =
+        trashBinary && join(dirname(process.execPath), 'lib', trashBinary);
+
+      if (trashBinaryPath && (await this.exists(trashBinaryPath))) {
+        try {
+          await pExecFile(trashBinaryPath, [path]);
+          return true;
+        } catch (error) {
+          // macOS 上二进制可能因执行位丢失或 Gatekeeper 隔离而无法运行, 回退到库实现
+          this.logger.warn(`回收站二进制不可用, 回退: ${String(error)}`);
+        }
+      }
+
       await trash(path, { glob: false });
+
       return true;
     } catch (error) {
       this.logger.error(`丢弃失败: ${decodeURI(_path)}, ${String(error)}`);
