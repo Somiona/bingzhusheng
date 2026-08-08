@@ -8,6 +8,9 @@
   },
   "scripts": {
     "repo:setup": "node scripts/setup.mjs",
+    "upstream:audit": "node scripts/upstream-sync.mjs audit",
+    "upstream:check": "node scripts/upstream-sync.mjs check",
+    "upstream:sync": "node scripts/upstream-sync.mjs sync",
     "clean": "node scripts/clean.mjs",
     "version:sync": "node scripts/version.mjs",
     "check:repo": "node scripts/repo-check.mjs",

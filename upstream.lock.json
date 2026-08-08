@@ -1,0 +1,61 @@
+{
+  "WebGal": {
+    "upstream": "https://github.com/OpenWebGAL/WebGAL",
+    "base": "4.6.2",
+    "exclude": [
+      ".github/",
+      ".gitignore",
+      "CONTRIBUTING.md",
+      "README.md",
+      "README_EN.md",
+      "README_FR.md",
+      "README_JP.md",
+      "README_KO.md",
+      "yarn.lock",
+      "package-lock.json",
+      "pnpm-lock.yaml",
+      "dev-docs/ko/",
+      "packages/server/",
+      "packages/yukimi/",
+      "packages/webgal/public/game/",
+      "packages/webgal/scripts/update-engine-version.js",
+      "packages/webgal/vite.config.ts",
+      "release-to-terre.sh",
+      "releasenote.md"
+    ]
+  },
+  "WebGAL_Terre": {
+    "upstream": "https://github.com/OpenWebGAL/WebGAL_Terre",
+    "base": "4.6.2",
+    "exclude": [
+      ".github/",
+      "yarn.lock",
+      "package-lock.json",
+      "pnpm-lock.yaml",
+      "releasenote.md",
+      "pr-check-linux.yml",
+      "build-android-assets.sh",
+      "build-electron.sh",
+      "installer.nsi",
+      "release.sh",
+      "release-android.sh",
+      "release-linux.sh",
+      "release-linux-arm64.sh",
+      "release-mac.sh",
+      "release-mac-x64.sh",
+      "release-terre-electron.sh",
+      "packages/WebGAL-electron/",
+      "packages/terre-electron/",
+      "packages/terre-android/",
+      "packages/dev-server/",
+      "packages/origine2/vite.config.ts",
+      "packages/terre2/pkg-build.ts",
+      "packages/terre2/standalone.js",
+      "packages/terre2/update-exe-resources.ts",
+      "packages/terre2/update-webgal.ts",
+      "packages/terre2/intl-polyfill-loader.js",
+      "packages/terre2/terre-custom-libs/",
+      "packages/terre2/assets/templates/WebGAL_Template/"
+    ]
+  }
+}

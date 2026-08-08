@@ -30,6 +30,34 @@ game/**/*.clip filter=lfs diff=lfs merge=lfs -text
 game/**/*.skel filter=lfs diff=lfs merge=lfs -text
 game/**/*.moc3 filter=lfs diff=lfs merge=lfs -text
 
+# The bundled example game follows the same media rules.
+game.example/**/*.png filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.webp filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.gif filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.avif filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.bmp filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.ico filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.mp3 filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.wav filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.ogg filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.flac filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.m4a filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.aac filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.mp4 filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.webm filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.mov filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.mkv filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.ttf filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.otf filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.woff filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.woff2 filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.psd filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.clip filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.skel filter=lfs diff=lfs merge=lfs -text
+game.example/**/*.moc3 filter=lfs diff=lfs merge=lfs -text
+
 # Large runtime inputs that are source, not generated build output.
 WebGal/packages/webgal/src/assets/fonts/**/*.ttf filter=lfs diff=lfs merge=lfs -text
 WebGal/packages/webgal/src/assets/fonts/**/*.otf filter=lfs diff=lfs merge=lfs -text
