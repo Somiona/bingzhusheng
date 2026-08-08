@@ -1,4 +1,7 @@
 Game_name: 秉烛生;
 Game_key: 14d68d55af784b1;
-Title_img:example_bg.png;
+Title_img: example_bg.png;
 Title_bgm: ;
+Show_panic: false;
+Enable_Appreciation: true;
+Enable_flowchart: true;
