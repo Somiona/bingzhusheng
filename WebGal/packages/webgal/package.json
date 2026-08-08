@@ -1,14 +1,14 @@
 {
   "name": "webgal-engine",
   "private": true,
-  "version": "4.6.2",
+  "version": "4.6.4",
   "scripts": {
     "dev": "vite --host --port 3000",
     "dev:terre": "vite build --watch --mode terre-preview --base=./",
     "build": "tsc && vite build --base=./",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
-    "lint": "eslint src/** --fix"
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix"
   },
   "dependencies": {
     "@emotion/css": "^11.13.5",
@@ -47,22 +47,22 @@
     "webgal-parser": "workspace:*"
   },
   "devDependencies": {
+    "@eslint/js": "catalog:",
     "@types/lodash": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@typescript-eslint/eslint-plugin": "catalog:",
-    "@typescript-eslint/parser": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "eslint": "catalog:",
-    "eslint-config-alloy": "catalog:",
     "eslint-config-prettier": "catalog:",
     "eslint-plugin-prettier": "catalog:",
     "eslint-plugin-react": "catalog:",
+    "globals": "catalog:",
     "lint-staged": "catalog:",
     "prettier": "catalog:",
     "rollup-plugin-visualizer": "^7.0.1",
     "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
     "unplugin-info": "catalog:",
     "vite": "catalog:",
     "vite-plugin-compression": "catalog:"
