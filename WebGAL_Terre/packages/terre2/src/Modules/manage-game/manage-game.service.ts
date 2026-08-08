@@ -193,7 +193,10 @@ export class ManageGameService {
         .filter((commandText) => commandText !== '')
         .map((commandText) => {
           const i = commandText.indexOf(':');
-          const arr = [commandText.slice(0, i), commandText.slice(i + 1)];
+          const arr = [
+            commandText.slice(0, i).trim(),
+            commandText.slice(i + 1).trim(),
+          ];
           config[arr[0]] = arr[1];
         });
     }
